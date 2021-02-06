@@ -15,7 +15,10 @@ def get_rez(week_name, group_name, message):
         week_name = week_name+1
         link = f'https://www.polessu.by/ruz/term2/?q={group_name}'
         option = webdriver.ChromeOptions()
+        
         option.add_argument('headless')
+        option.add_argument('--disable-gpu')
+        option.add_argument('--no-sandbox')
         browser = webdriver.Chrome(options=option)
         browser.get(link)
         browser.set_window_size(1000,1200)
