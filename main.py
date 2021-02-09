@@ -15,12 +15,12 @@ def get_rez(week_name, group_name, message):
         week_name = week_name+1
         link = f'https://www.polessu.by/ruz/term2/?q={group_name}'
         option = webdriver.ChromeOptions()
-        GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
-        CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+        option.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         option.add_argument('headless')
+        option.add_argument('--disable-dev-shm-usage')
         option.add_argument('--disable-gpu')
         option.add_argument('--no-sandbox')
-        browser = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, options=option)
+        browser = webdriver.Chrome(execution_path=os.environ.get("CHROMEDRIVER_PATH"), options=option)
         browser.get(link)
         browser.set_window_size(1000,1200)
         browser.find_element_by_xpath('/html/body/section/div/div/div[2]/div/button').click()
