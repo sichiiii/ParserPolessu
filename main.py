@@ -1,4 +1,4 @@
-import telebot
+import telebot, os
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.chrome.options import Options 
@@ -15,12 +15,11 @@ def get_rez(week_name, group_name, message):
         week_name = week_name+1
         link = f'https://www.polessu.by/ruz/term2/?q={group_name}'
         option = webdriver.ChromeOptions()
-        option.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         option.add_argument('headless')
         option.add_argument('--disable-dev-shm-usage')
         option.add_argument('--disable-gpu')
         option.add_argument('--no-sandbox')
-        browser = webdriver.Chrome(execution_path=os.environ.get("CHROMEDRIVER_PATH"), options=option)
+        browser = webdriver.Chrome(options=option)
         browser.get(link)
         browser.set_window_size(1000,1200)
         browser.find_element_by_xpath('/html/body/section/div/div/div[2]/div/button').click()
@@ -31,7 +30,7 @@ def get_rez(week_name, group_name, message):
         browser.quit()
         count = 0
         bot.send_photo(message.chat.id, open('/home/jabka/parser/my_screenshot.png', 'rb'))
-        message.text = ''
+        os.remove('/home/jabka/parser/my_screenshot.png')
         bot.register_next_step_handler(message, start_message)
 
 @bot.message_handler(commands=['start'])
