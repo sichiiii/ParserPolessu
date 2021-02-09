@@ -20,16 +20,18 @@ def get_rez(week_name, group_name, message):
         option.add_argument('--disable-gpu')
         option.add_argument('--no-sandbox')
         browser = webdriver.Chrome(options=option)
+        
         browser.get(link)
         browser.set_window_size(1000,1200)
         browser.find_element_by_xpath('/html/body/section/div/div/div[2]/div/button').click()
         browser.find_element_by_xpath(f'//*[@id="weeks-menu"]/li[{week_name}]/a').click()
+
         with open('page.txt', 'w') as f:
             f.write(browser.page_source)
             screenshot = browser.save_screenshot("my_screenshot.png")
-        browser.quit()
-        count = 0
         bot.send_photo(message.chat.id, open('/home/jabka/parser/my_screenshot.png', 'rb'))
+        
+        browser.quit()
         os.remove('/home/jabka/parser/my_screenshot.png')
         bot.register_next_step_handler(message, start_message)
 
@@ -54,4 +56,5 @@ def get_message(message):
         get_rez(week_name, group_name, message)
         week_name = 0 
         group_name = 0
+
 bot.polling(none_stop=True, interval=0)
