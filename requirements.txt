@@ -13,9 +13,7 @@ pyRFC3339==1.1
 PySocks==1.6.8
 pyTelegramBotAPI==3.7.6
 pytest==5.1.1
-python-apt==2.0.0+ubuntu0.20.4.3
 python-dateutil==2.7.3
-python-debian===0.1.36ubuntu1
 python-gnupg==0.4.5
 pythondialog==3.4.0
 pytz==2019.3
