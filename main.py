@@ -27,8 +27,8 @@ def get_rez(week_name, group_name, message):
         browser.find_element_by_xpath('/html/body/section/div/div/div[2]/div/button').click()
         browser.find_element_by_xpath(f'//*[@id="weeks-menu"]/li[{week_name}]/a').click()
 
-        screenshot = browser.save_screenshot("/app/rezpolessu/my_screenshot.png")
-        bot.send_photo(message.chat.id, open('/app/rezpolessu/my_screenshot.png', 'rb'))
+        screenshot = browser.save_screenshot("my_screenshot.png")
+        bot.send_photo(message.chat.id, open('my_screenshot.png', 'rb'))
         
         browser.quit()
         bot.register_next_step_handler(message, start_message)
