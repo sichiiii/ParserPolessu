@@ -14,23 +14,20 @@ def get_rez(week_name, group_name, message):
     if count == 1:
         week_name = week_name+1
         link = f'https://www.polessu.by/ruz/term2/?q={group_name}'
-        
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--no-sandbox")
-        browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+        option = webdriver.ChromeOptions()
+        option.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+        option.add_argument('headless')
+        option.add_argument('--disable-dev-sh-usage')
+        option.add_argument('--disable-gpu')
+        option.add_argument('--no-sandbox')
+        browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=option)
         
         browser.get(link)
         browser.set_window_size(1000,1200)
         browser.find_element_by_xpath('/html/body/section/div/div/div[2]/div/button').click()
         browser.find_element_by_xpath(f'//*[@id="weeks-menu"]/li[{week_name}]/a').click()
 
-        with open('page.txt', 'w') as f:
-            f.write(browser.page_source)
-            screenshot = browser.save_screenshot("my_screenshot.png")
-        bot.send_photo(message.chat.id, open('/home/jabka/parser/my_screenshot.png', 'rb'))
+        bot.send_photo(message.chat.id, browser.get_screenshot_as_png)
         
         browser.quit()
         os.remove('/home/jabka/parser/my_screenshot.png')
