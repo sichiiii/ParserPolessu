@@ -16,7 +16,7 @@ def get_rez(week_name, group_name, message):
         link = f'https://www.polessu.by/ruz/term2/?q={group_name}'
         option = webdriver.ChromeOptions()
         option.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        option.add_argument('headless')
+        option.add_argument('--headless')
         option.add_argument('--disable-dev-sh-usage')
         option.add_argument('--disable-gpu')
         option.add_argument('--no-sandbox')
@@ -30,7 +30,6 @@ def get_rez(week_name, group_name, message):
         bot.send_photo(message.chat.id, browser.get_screenshot_as_png)
         
         browser.quit()
-        os.remove('/home/jabka/parser/my_screenshot.png')
         bot.register_next_step_handler(message, start_message)
 
 @bot.message_handler(commands=['start'])
