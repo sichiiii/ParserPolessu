@@ -54,4 +54,7 @@ def get_message(message):
         week_name = 0 
         group_name = 0
 
+if __name__ == '__main__':
+    app.run()
+    
 bot.polling(none_stop=True, interval=0)
