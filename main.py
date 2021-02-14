@@ -11,7 +11,7 @@ count = 0
 
 def get_rez(week_name, group_name, message):
     global count
-    if count == 1:
+    try:
         week_name = week_name+1
         link = f'https://www.polessu.by/ruz/term2/?q={group_name}'
         option = webdriver.ChromeOptions()
@@ -32,12 +32,14 @@ def get_rez(week_name, group_name, message):
         
         browser.quit()
         bot.register_next_step_handler(message, start_message)
+    except:
+        print('loggssssss!!!')
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
     global count 
     count = 1
-    bot.send_message(message.chat.id, 'Hi! Enter group or week(1-18)')
+    bot.send_message(message.chat.id, 'Hi! Enter group or week')
     bot.register_next_step_handler(message, get_message)
 
 def get_message(message):
@@ -46,7 +48,10 @@ def get_message(message):
     if week_name == 0 or group_name == '0':
         try:
             week_name = int(message.text)
-            bot.register_next_step_handler(message, get_message)
+            if week_name < 2 or week_name > 8: 
+                bot.register_next_step_handler(message, get_message)
+            else:
+                bot.send_message(message.chat.id, 'Wrong week!')
         except Exception:
             group_name = message.text
             bot.register_next_step_handler(message, get_message)
