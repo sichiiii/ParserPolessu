@@ -32,8 +32,8 @@ def get_rez(week_name, group_name, message):
         
         browser.quit()
         bot.register_next_step_handler(message, start_message)
-    except:
-        print('loggssssss!!!')
+    except Exception:
+        bot.send_message(message.chat.id, 'Oops! Something went wrong! Try another group or week: /start')
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -50,8 +50,6 @@ def get_message(message):
             week_name = int(message.text)
             if week_name < 2 or week_name > 8: 
                 bot.register_next_step_handler(message, get_message)
-            else:
-                bot.send_message(message.chat.id, 'Wrong week!')
         except Exception:
             group_name = message.text
             bot.register_next_step_handler(message, get_message)
