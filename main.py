@@ -60,7 +60,7 @@ def get_message(message):
         group_name = 0
     
 if "HEROKU" in list(os.environ.keys()):
-    server = flask(__name__)
+    server = Flask(__name__)
     @server.route("/bot", methods=['POST'])
     def getMessage():
         bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
