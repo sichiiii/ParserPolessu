@@ -1,7 +1,8 @@
-import telebot, os, flask
+import telebot, os
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.chrome.options import Options 
+from flask import Flask
 
 bot = telebot.TeleBot('1605853735:AAGYGN3uWIGJO4MY3vCTMX1qnAjNL80U8UY')
 
@@ -59,7 +60,7 @@ def get_message(message):
         group_name = 0
     
 if "HEROKU" in list(os.environ.keys()):
-    server = Flask(__name__)
+    server = flask(__name__)
     @server.route("/bot", methods=['POST'])
     def getMessage():
         bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
