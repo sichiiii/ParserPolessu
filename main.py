@@ -1,4 +1,4 @@
-import telebot, os
+import telebot, os, requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.chrome.options import Options 
@@ -8,6 +8,9 @@ bot = telebot.TeleBot('1605853735:AAGYGN3uWIGJO4MY3vCTMX1qnAjNL80U8UY')
 
 week_name = 0
 group_name = '0'
+app_url = "https://rezpolessu.herokuapp.com/"
+
+requests.get(app_url)
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -62,7 +65,7 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url="https://rezpolessu.herokuapp.com/" + tokenBot.TOKEN)
+    bot.set_webhook(url=app_url)
     bot.polling(none_stop=True)
     return "?", 200
 server.run(host="0.0.0.0", port=os.environ.get('PORT', 5000))
