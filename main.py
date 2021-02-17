@@ -24,7 +24,7 @@ def get_message(message):
         except Exception:
             group_name = message.text
             bot.register_next_step_handler(message, get_message)
-    else:
+    if week_name != 0 and group_name != '0':
         get_rez(week_name, group_name, message)
         week_name = 0 
         group_name = 0
