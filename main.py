@@ -13,7 +13,6 @@ count = 0
 def get_rez(week_name, group_name, message):
     global count
     try:
-        week_name = week_name+1
         link = f'https://www.polessu.by/ruz/term2/?q={group_name}'
         option = webdriver.ChromeOptions()
         option.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
