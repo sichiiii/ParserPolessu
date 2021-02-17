@@ -8,10 +8,8 @@ bot = telebot.TeleBot('1605853735:AAGYGN3uWIGJO4MY3vCTMX1qnAjNL80U8UY')
 
 week_name = 0
 group_name = '0'
-count = 0
 
 def get_rez(week_name, group_name, message):
-    global count
     try:
         link = f'https://www.polessu.by/ruz/term2/?q={group_name}'
         option = webdriver.ChromeOptions()
@@ -37,8 +35,6 @@ def get_rez(week_name, group_name, message):
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
-    global count 
-    count = 1
     bot.send_message(message.chat.id, 'Hi! Enter group or week')
     bot.register_next_step_handler(message, get_message)
 
