@@ -47,12 +47,15 @@ def getScreen(week_name, group_name, message):
         browser.find_element_by_xpath(f'//*[@id="weeks-menu"]/li[{week_name}]/a').click()
 
         screenshot = browser.save_screenshot("my_screenshot.png")
-        bot.send_photo(message.chat.id, open('my_screenshot.png', 'rb'))
-        
         browser.quit()
+
+        sendPhoto()
     except Exception:
         bot.send_message(message.chat.id, 'Oops! Something went wrong! Try another group or week: /start')
         
+def sendPhoto():
+    bot.send_photo(message.chat.id, open('my_screenshot.png', 'rb'))
+
 server = Flask(__name__)
 @server.route("/bot", methods=['POST'])
 def getMessage():
