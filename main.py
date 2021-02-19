@@ -6,17 +6,14 @@ from flask import Flask
 
 bot = telebot.TeleBot('1605853735:AAGYGN3uWIGJO4MY3vCTMX1qnAjNL80U8UY')
 
-week_name = 0
-group_name = '0'
-
 @bot.message_handler(commands=['start'])
 def startMessage(message):
     bot.send_message(message.chat.id, 'Hi! Enter group or week')
     bot.register_next_step_handler(message, getMessage)
 
 def getMessage(message):
-    global week_name
-    global group_name
+    week_name = 0
+    group_name = '0'
     if week_name == 0 or group_name == '0':
         try:
             week_name = int(message.text)
