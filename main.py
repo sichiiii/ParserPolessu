@@ -10,27 +10,27 @@ week_name = 0
 group_name = '0'
 
 @bot.message_handler(commands=['start'])
-def start_message(message):
+def startMessage(message):
     bot.send_message(message.chat.id, 'Hi! Enter group or week')
-    bot.register_next_step_handler(message, get_message)
+    bot.register_next_step_handler(message, getMessage)
 
-def get_message(message):
+def getMessage(message):
     global week_name
     global group_name
     if week_name == 0 or group_name == '0':
         try:
             week_name = int(message.text)
             if week_name < 1 or week_name > 8: 
-                bot.register_next_step_handler(message, get_message)
+                bot.register_next_step_handler(message, getMessage)
         except Exception:
             group_name = message.text
-            bot.register_next_step_handler(message, get_message)
+            bot.register_next_step_handler(message, getMessage)
     if week_name != 0 and group_name != '0':
-        get_rez(week_name, group_name, message)
+        getScreen(week_name, group_name, message)
         week_name = 0 
         group_name = 0
 
-def get_rez(week_name, group_name, message):
+def getScreen(week_name, group_name, message):
     try:
         option = webdriver.ChromeOptions()
         option.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -50,7 +50,7 @@ def get_rez(week_name, group_name, message):
         bot.send_photo(message.chat.id, open('my_screenshot.png', 'rb'))
         
         browser.quit()
-        bot.register_next_step_handler(message, start_message)
+        bot.register_next_step_handler(message, startMessage)
     except Exception:
         bot.send_message(message.chat.id, 'Oops! Something went wrong! Try another group or week: /start')
         
