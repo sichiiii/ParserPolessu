@@ -50,7 +50,6 @@ def getScreen(week_name, group_name, message):
         bot.send_photo(message.chat.id, open('my_screenshot.png', 'rb'))
         
         browser.quit()
-        bot.register_next_step_handler(message, startMessage)
     except Exception:
         bot.send_message(message.chat.id, 'Oops! Something went wrong! Try another group or week: /start')
         
