@@ -20,7 +20,7 @@ def get_message(message):
     if week_name == 0 or group_name == '0':
         try:
             week_name = int(message.text)
-            if week_name < 2 or week_name > 8: 
+            if week_name < 1 or week_name > 8: 
                 bot.register_next_step_handler(message, get_message)
         except Exception:
             group_name = message.text
