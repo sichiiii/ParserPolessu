@@ -1,10 +1,10 @@
-mport telebot, os
+import telebot, os
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.chrome.options import Options 
 from flask import Flask
 
-bot = telebot.TeleBot('1605853735:AAGYGN3uWIGJO4MY3vCTMX1qnAjNL80U8UY')
+bot = telebot.TeleBot('605853735:AAGYGN3uWIGJO4MY3vCTMX1qnAjNL80U8UY')
 
 week_name = 0
 group_name = '0'
