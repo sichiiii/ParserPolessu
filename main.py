@@ -1,4 +1,4 @@
-import telebot, os
+import telebot, os, requests
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.chrome.options import Options 
@@ -10,27 +10,27 @@ week_name = 0
 group_name = '0'
 
 @bot.message_handler(commands=['start'])
-def startMessage(message):
+def start_message(message):
     bot.send_message(message.chat.id, 'Hi! Enter group or week')
-    bot.register_next_step_handler(message, getMessage)
+    bot.register_next_step_handler(message, get_message)
 
-def getMessage(message):
+def get_message(message):
     global week_name
     global group_name
     if week_name == 0 or group_name == '0':
         try:
             week_name = int(message.text)
-            if week_name < 1 or week_name > 8: 
-                bot.register_next_step_handler(message, getMessage)
+            if week_name < 2 or week_name > 8: 
+                bot.register_next_step_handler(message, get_message)
         except Exception:
             group_name = message.text
-            bot.register_next_step_handler(message, getMessage)
+            bot.register_next_step_handler(message, get_message)
     if week_name != 0 and group_name != '0':
-        getScreen(week_name, group_name, message)
+        get_rez(week_name, group_name, message)
         week_name = 0 
         group_name = 0
 
-def getScreen(week_name, group_name, message):
+def get_rez(week_name, group_name, message):
     try:
         option = webdriver.ChromeOptions()
         option.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -50,6 +50,7 @@ def getScreen(week_name, group_name, message):
         bot.send_photo(message.chat.id, open('my_screenshot.png', 'rb'))
         
         browser.quit()
+        bot.register_next_step_handler(message, start_message)
     except Exception:
         bot.send_message(message.chat.id, 'Oops! Something went wrong! Try another group or week: /start')
         
