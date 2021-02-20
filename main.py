@@ -26,11 +26,11 @@ def getMessage(message):
             group_name = message.text
             bot.register_next_step_handler(message, getMessage)
     if week_name != 0 and group_name != '0':
-        getRez(week_name, group_name, message)
+        getScreen(week_name, group_name, message)
         week_name = 0 
         group_name = 0
 
-def getRez(week_name, group_name, message):
+def getScreen(week_name, group_name, message):
     try:
         option = webdriver.ChromeOptions()
         option.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -47,13 +47,15 @@ def getRez(week_name, group_name, message):
         browser.find_element_by_xpath(f'//*[@id="weeks-menu"]/li[{week_name}]/a').click()
 
         screenshot = browser.save_screenshot("my_screenshot.png")
-        bot.send_photo(message.chat.id, open('my_screenshot.png', 'rb'))
-        
         browser.quit()
-        bot.register_next_step_handler(message, startMessage)
-    except Exception:
-        bot.send_Message(message.chat.id, 'Oops! Something went wrong! Try another group or week: /start')
         
+        sendPhoto()
+    except Exception:
+        bot.send_message(message.chat.id, 'Oops! Something went wrong! Try another group or week: /start')
+        
+def sendPhoto():
+    bot.send_photo(message.chat.id, open('my_screenshot.png', 'rb'))
+    
 server = Flask(__name__)
 @server.route("/bot", methods=['POST'])
 def getMessage():
