@@ -1,1 +1,0 @@
-2022-01-31 03:31:15,281 - [ERROR] - __main__ - (main.py).getMessage(49) - 'str' object has no attribute 'toupper'
