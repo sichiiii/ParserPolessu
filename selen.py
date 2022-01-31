@@ -1,4 +1,5 @@
 import os
+from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -16,6 +17,7 @@ class Selen():
         link = f'https://www.polessu.by/ruz/?q={group_name}'
         self.browser.get(link)
         self.browser.set_window_size(1000,1200)
+        sleep(2)
         self.browser.find_element(By.XPATH, '/html/body/section/div/div/div[2]/div/button').click()
         self.browser.find_element(By.XPATH, '//a[@href="#w' + str(int(week_name)-21) + '"]').click()
         self.browser.save_screenshot("my_screenshot.png")

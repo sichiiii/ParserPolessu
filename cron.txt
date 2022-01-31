@@ -1,0 +1,2 @@
+@reboot /usr/bin/python3.8 /home/jabka/ParserPolessu/main.py
+@reboot sleep 20 && /usr/bin/curl 10.1.1.4:5000
